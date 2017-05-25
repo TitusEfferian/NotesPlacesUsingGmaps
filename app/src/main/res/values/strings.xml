@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NotesPlacesUsingGmaps</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
