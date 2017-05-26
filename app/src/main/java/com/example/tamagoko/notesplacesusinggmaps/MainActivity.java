@@ -31,35 +31,45 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> latitudes = new ArrayList<>();
         ArrayList<String> longitudes = new ArrayList<>();
+
         places.clear();
         latitudes.clear();
+        longitudes.clear();
         location.clear();
 
         try {
-            places = (ArrayList<String>)ObjectSerializer.deserialize(sharedPreferences.getString("places",ObjectSerializer.serialize(new ArrayList<String>())));
-            latitudes = (ArrayList<String>)ObjectSerializer.deserialize(sharedPreferences.getString("latitudes",ObjectSerializer.serialize(new ArrayList<String>())));
-            longitudes = (ArrayList<String>)ObjectSerializer.deserialize(sharedPreferences.getString("longitudes",ObjectSerializer.serialize(new ArrayList<String>())));
 
+            places = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("places", ObjectSerializer.serialize(new ArrayList<String>())));
+
+            latitudes = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("latitudes", ObjectSerializer.serialize(new ArrayList<String>())));
+
+            longitudes = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("longitudes", ObjectSerializer.serialize(new ArrayList<String>())));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        if(places.size()>0 && latitudes.size()>0 && longitudes.size()>0)
-        {
-            if(places.size()==latitudes.size()&& latitudes.size()==longitudes.size())
-            {
-                for(int a=0;a<latitudes.size();a++)
-                {
-                    location.add(new LatLng(Double.parseDouble(latitudes.get(a)),Double.parseDouble(longitudes.get(a))));
+        if (places.size() > 0 && latitudes.size() > 0 && longitudes.size() > 0) {
+
+            if (places.size() == latitudes.size() && latitudes.size() == longitudes.size()) {
+
+                for (int i = 0; i < latitudes.size(); i++) {
+
+                    location.add(new LatLng(Double.parseDouble(latitudes.get(i)), Double.parseDouble(longitudes.get(i))));
+
                 }
+
+
             }
+
+
+        } else {
+
+            places.add("Add a new place...");
+            location.add(new LatLng(0, 0));
+
         }
-        else
-        {
-            places.add("add a new places...");
-            location.add(new LatLng(0,0));
-        }
+
 
         arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,places);
         listView.setAdapter(arrayAdapter);

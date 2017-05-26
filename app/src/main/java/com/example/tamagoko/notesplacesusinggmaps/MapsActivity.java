@@ -196,26 +196,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MainActivity.location.add(latLng);
         MainActivity.arrayAdapter.notifyDataSetChanged();
 
-        SharedPreferences sharedPreferences=this.getSharedPreferences("com.example.tamagoko.notesplacesusinggmaps",Context.MODE_PRIVATE);
-        try {
-            ArrayList<String>latitudes=new ArrayList<>();
-            ArrayList<String>Longitudes= new ArrayList<>();
-            for(LatLng coordinates:MainActivity.location)
-            {
-                latitudes.add(Double.toString(coordinates.latitude));
-                Longitudes.add(Double.toString(coordinates.longitude));
-            }
-            sharedPreferences.edit().putString("places",ObjectSerializer.serialize(MainActivity.places)).apply();
-            sharedPreferences.edit().putString("latitudes",ObjectSerializer.serialize(latitudes)).apply();
-            sharedPreferences.edit().putString("Longitudes",ObjectSerializer.serialize(Longitudes)).apply();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("com.example.tamagoko.notesplacesusinggmaps", Context.MODE_PRIVATE);
 
+        try {
+
+            ArrayList<String> latitudes = new ArrayList<>();
+            ArrayList<String> longitudes = new ArrayList<>();
+
+            for (LatLng coordinates : MainActivity.location) {
+
+                latitudes.add(Double.toString(coordinates.latitude));
+                longitudes.add(Double.toString(coordinates.longitude));
+
+            }
+
+
+            sharedPreferences.edit().putString("places", ObjectSerializer.serialize(MainActivity.places)).apply();
+            sharedPreferences.edit().putString("latitudes", ObjectSerializer.serialize(latitudes)).apply();
+            sharedPreferences.edit().putString("longitudes", ObjectSerializer.serialize(longitudes)).apply();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Toast.makeText(this, "Location saved", Toast.LENGTH_SHORT).show();
 
+        Toast.makeText(this, "Location Saved", Toast.LENGTH_SHORT).show();
 
     }
 }
